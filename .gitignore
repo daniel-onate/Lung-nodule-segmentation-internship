@@ -15,3 +15,7 @@ venv/
 **/data/
 
 Practice/
+
+.DS_Store
+Thumbs.db
+Desktop.ini
