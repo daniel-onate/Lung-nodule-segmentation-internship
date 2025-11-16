@@ -21,12 +21,8 @@ class LIDCDataset(Dataset):
         img_path = os.path.join(self.image_dir, self.image_files[idx])
         mask_path = os.path.join(self.mask_dir, self.mask_files[idx])
 
-        image = np.load(img_path)#.astype(np.float32)
-        mask = np.load(mask_path)#.astype(np.float32)
-
-        #image = (image - image.min()) / (image.max() - image.min() + 1e-8)
-        #mask = mask > 0
-        #mask = mask.astype(np.float32)
+        image = np.load(img_path)
+        mask = np.load(mask_path)
 
         image = np.expand_dims(image, axis=0)
         mask = np.expand_dims(mask, axis=0)
