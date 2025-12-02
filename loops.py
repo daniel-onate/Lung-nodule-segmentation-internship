@@ -96,6 +96,7 @@ class Trainer():
         plt.legend()
         plt.show
         plt.savefig(self.save_path)
+        print(self.save_path)
 
 
     def test(self):
@@ -128,3 +129,7 @@ class Trainer():
         print(f"Test runtime {end - start}")
         print(f"Mean dice coefficient on test set: {test_dice:.4f}")
         print(f"Mean loss on test set: {test_loss:.4f}")
+
+
+    def get_model(self):
+        return self.model

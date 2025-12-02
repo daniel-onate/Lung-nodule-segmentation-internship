@@ -24,4 +24,5 @@ Overview_lesions_corrected.xlsx
 Thumbs.db
 Desktop.ini
 
-old.ipynb
+old*.ipynb
+old*.py
