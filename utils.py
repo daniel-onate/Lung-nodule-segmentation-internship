@@ -1,5 +1,3 @@
-
-
 def apply_windowing(Input,W,L):
 
     min_HU=L-(0.5*W)
@@ -14,6 +12,7 @@ def apply_windowing(Input,W,L):
 def dice_coeff(outputs, masks, smooth=1e-6):
 
     outputs = outputs.view(-1)
+    outputs = (outputs > 0.5).float()
     masks = masks.view(-1)
 
     intersection = (outputs * masks).sum()

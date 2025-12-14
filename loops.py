@@ -93,6 +93,7 @@ class Trainer():
         plt.figure()
         plt.plot(train_loss_list, label='training loss')
         plt.plot(val_loss_list,label='validation loss')
+        plt.title('Traning and validation loss')
         plt.legend()
         plt.show
         plt.savefig(self.save_path)
