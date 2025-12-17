@@ -37,3 +37,42 @@ class EarlyStopping():
             if self.counter >= self.patience:
                 self.stop_training = True
                 print('Early stopping')
+
+
+import torch.nn as nn
+
+class DiceLoss(nn.Module):
+
+    def __init__(self, smooth=1e-6):
+        super().__init__()
+        self.smooth = smooth
+
+    def forward(self, outputs, masks):
+
+        outputs = outputs.view(-1)
+        masks = masks.view(-1)
+
+        intersection = (outputs * masks).sum()
+        loss = (2. * intersection + self.smooth) / (outputs.sum() + masks.sum() + self.smooth)
+
+        return 1 - loss
+    
+
+class ComboLoss(nn.Module):
+
+    def __init__(self, alpha=0.5):
+
+        super().__init__()
+        self.dice_w = alpha
+        self.bce_w = 1 - alpha
+        self.bce = nn.BCELoss()
+        self.dice = DiceLoss()
+
+    def forward(self, outputs, masks):
+
+        bce_loss = self.bce(outputs, masks)
+        dice_loss = self.dice(outputs, masks)
+
+        loss = bce_loss * self.bce_w + dice_loss * self.dice_w
+
+        return loss
