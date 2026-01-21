@@ -20,6 +20,32 @@ def dice_coeff(outputs, masks, smooth=1e-6):
 
     return dice.item()
 
+def precision(outputs, masks):
+
+    outputs = outputs.view(-1)
+    outputs = (outputs > 0.5).float()
+    masks = masks.view(-1)
+
+    TP = ((outputs == 1) & (masks == 1)).sum().item()
+    FP = ((outputs == 1) & (masks == 0)).sum().item()
+    
+    precision = TP / (TP + FP + 1e-8)
+
+    return precision
+
+def recall(outputs, masks):
+
+    outputs = outputs.view(-1)
+    outputs = (outputs > 0.5).float()
+    masks = masks.view(-1)
+
+    TP = ((outputs == 1) & (masks == 1)).sum().item()
+    FN = ((outputs == 0) & (masks == 1)).sum().item()
+    
+    recall = TP / (TP + FN + 1e-8)
+
+    return recall
+
 class EarlyStopping():
     def __init__(self, patience, delta):
         self.stop_training = False
@@ -44,6 +70,7 @@ import torch.nn as nn
 class DiceLoss(nn.Module):
 
     def __init__(self, smooth=1e-6):
+        
         super().__init__()
         self.smooth = smooth
 
