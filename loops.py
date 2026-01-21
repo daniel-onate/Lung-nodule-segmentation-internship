@@ -230,6 +230,17 @@ class Trainer():
                     for idx_inside, (unbatched_image, unbatched_masks) in enumerate(zip(images, masks)):
 
                         if idx_search == [idx_batch, idx_inside]:
+
+                            #for 3d only
+
+                            #numpy_unbatched_mask = unbatched_masks.squeeze(0).cpu().numpy()
+                            #print(numpy_unbatched_mask.shape)
+                            #labels = measure.label(numpy_unbatched_mask, connectivity=1)
+                            #props = measure.regionprops(labels)
+                            #centroid = props[0].centroid
+                            #x_centroid = int(centroid[2])
+
+                            #for 3d only
                             
                             #print(unbatched_image.shape)
                             ax.imshow(unbatched_image.squeeze(0), cmap='gray')
